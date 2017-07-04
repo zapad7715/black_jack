@@ -1,0 +1,6 @@
+.DS_Store
+
+.ruby-version
+.ruby-gemset
+.rubocop.yml
+*swp
