@@ -13,7 +13,7 @@ class Dealer
     class << @hand
       alias_method :real_take_card, :take_card
       def take_card(deck)
-        raise 'Dealer pass.' if score >= 19
+        raise 'Dealer pass.' if score >= 19 && rand(100).odd?
         real_take_card(deck)
       end
     end
