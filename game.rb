@@ -1,9 +1,6 @@
 class Game
-  class << self
-    attr_accessor :deck
-  end
 
   def initialize(deck)
-    self.class.deck = deck
+    @deck = deck
   end
 end

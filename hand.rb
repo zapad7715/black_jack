@@ -13,4 +13,8 @@ class Hand
     @cards.each { |card| score += card.value }
     score
   end
+
+  def list
+    @cards.each{ |card| puts card }
+  end
 end

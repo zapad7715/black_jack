@@ -1,0 +1,3 @@
+class Dealer < Hand
+
+end
