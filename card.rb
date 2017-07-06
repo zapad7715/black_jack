@@ -1,8 +1,7 @@
 class Card
-  attr_reader :suit
 
-  def initialize(suit:, value:)
-    @suit = suite
+  def initialize(suit, value)
+    @suit = suit
     @value = value
   end
 
@@ -10,5 +9,9 @@ class Card
     return 10 if ['J', 'Q', 'K']
     return 11 if ['A']
     return @value
+  end
+
+  def to_s
+    "#{@value}#{@suit}"
   end
 end
