@@ -1,4 +1,8 @@
 class Deck
+  SUITS = ['+', '<3', '<>', '^']
+  CARD_VALUES = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
+
+  attr_reader :cards
 
   def initialize
     @cards = create
@@ -6,11 +10,8 @@ class Deck
 
   def create
     cards = []
-    ['+', '<3', '<>', '^'].each do |suit|
-      (2..10).each do |value|
-        cards << Card.new(suit, value)
-      end
-      ['J', 'Q', 'K', 'A'].each do |value|
+    SUITS.each do |suit|
+      CARD_VALUES.each do |value|
         cards << Card.new(suit, value)
       end
     end
