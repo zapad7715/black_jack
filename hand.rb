@@ -2,10 +2,12 @@ class Hand
 
   attr_reader :cards
 
-  @cards = []
+  def initialize
+    @cards = []
+  end
 
   def take_card(deck)
-    @cards << deck.pop
+    @cards << deck.cards.pop
   end
 
   def score
