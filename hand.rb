@@ -9,9 +9,12 @@ class Hand
   end
 
   def score
-    score = 0
-    @cards.each { |card| score += card.value }
-    score
+    values = []
+    @cards.each { |card| values << card.value }
+    if values.sum > 21 && values.max == 11
+      values[values.index(values.max)] = 1
+    end
+    values.sum
   end
 
   def list
