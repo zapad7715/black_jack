@@ -1,5 +1,6 @@
-class Hand
+# frozen_string_literal: true
 
+class Hand
   attr_reader :cards
 
   def initialize
@@ -13,13 +14,11 @@ class Hand
   def score
     values = []
     @cards.each { |card| values << card.value }
-    if values.sum > 21 && values.max == 11
-      values[values.index(values.max)] = 1
-    end
+    values[values.index(values.max)] = 1 if values.sum > 21 && values.max == 11
     values.sum
   end
 
   def list
-    @cards.each{ |card| puts card }
+    @cards.each { |card| puts card }
   end
 end
