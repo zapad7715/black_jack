@@ -14,19 +14,6 @@ class Player
     validate!
   end
 
-  def hide_cards
-    puts "Карты #{@name}:"
-    @cards.each { puts 'Карта: *. Очков: *' }
-  end
-
-  def take_card(deck)
-    @cards << deck.cards.pop
-  end
-
-  def total
-    puts "Всего очков: #{score}"
-  end
-
   def score
     values = []
     @cards.each { |card| values << card.value }
@@ -34,9 +21,8 @@ class Player
     values.sum
   end
 
-  def show_cards
-    puts "Карты #{@name}:"
-    @cards.each { |card| puts "Карта: #{card}. Очков: #{card.value}" }
+  def take_card(deck)
+    @cards << deck.cards.pop
   end
 
   private

@@ -14,6 +14,6 @@ class Dealer < Player
 
   def allow_take_card?
     # In life there must be a place for the occasion
-    score >= 19 && (0..91).cover?(rand(100))
+    score >= 17 && (0..91).cover?(rand(100))
   end
 end
