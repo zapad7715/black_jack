@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-class Dealer < Player
-  def initialize
-    super('Дилер')
-  end
+require_relative 'player'
 
+class Dealer < Player
   def take_card(deck)
     raise 'Dealer pass.' if allow_take_card?
     super

@@ -5,9 +5,14 @@ require_relative 'show'
 class Game
   include Show
   def initialize
-    @dealer = Dealer.new
+    @dealer = Dealer.new('Дилер')
     @user = create_user
     @players = [@user, @dealer]
+    new_round
+  end
+
+  def new_round
+    @players.each(&:cleanup_cards)
     @deck = Deck.new
     @bets = 0
     distribution(@deck)
@@ -17,7 +22,7 @@ class Game
   private
 
   def betting(bet)
-    @players.map { |player| @bets += player.give_money!(bet) }
+    @players.each { |player| @bets += player.give_money!(bet) }
   rescue RuntimeError => e
     puts e.message
   end
@@ -31,11 +36,8 @@ class Game
   end
 
   def distribution(deck)
-    2.times { @player.take_card(deck) }
-    2.times { @dealer.take_card(deck) }
-  end
-
-  def reset_deck
-    @deck = Deck.new
+    2.times do
+      @players.each { |player| player.take_card(deck) }
+    end
   end
 end

@@ -25,6 +25,10 @@ class Player
     @cards << deck.cards.pop
   end
 
+  def cleanup_cards
+    @cards = []
+  end
+
   private
 
   def validate!
