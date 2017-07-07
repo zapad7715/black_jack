@@ -7,6 +7,7 @@ class Game
   def initialize
     @dealer = Dealer.new
     @user = create_user
+    @players = [@user, @dealer]
     @deck = Deck.new
     @bets = 0
     distribution(@deck)
@@ -16,8 +17,7 @@ class Game
   private
 
   def betting(bet)
-    @bets += @user.give_money!(bet)
-    @bets += @dealer.give_money!(bet)
+    @players.map { |player| @bets += player.give_money!(bet) }
   rescue RuntimeError => e
     puts e.message
   end
