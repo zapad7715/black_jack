@@ -4,6 +4,7 @@ module Bank
   def give_money!(amount)
     raise 'Not enouch money' if @bank < amount
     @bank -= amount
+    amount
   end
 
   def take_money(amount)

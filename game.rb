@@ -8,10 +8,19 @@ class Game
     @dealer = Dealer.new
     @user = create_user
     @deck = Deck.new
+    @bets = 0
     distribution(@deck)
+    betting(10)
   end
 
   private
+
+  def betting(bet)
+    @bets += @user.give_money!(bet)
+    @bets += @dealer.give_money!(bet)
+  rescue RuntimeError => e
+    puts e.message
+  end
 
   def create_user
     puts 'Введите ваше имя: '
