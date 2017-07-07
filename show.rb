@@ -24,8 +24,8 @@ module Show
   end
 
   def show_actions(player)
-    puts '1 – Пропустить.'
-    puts '2 – Добавить карту.' if player.cards.size == 2
+    puts '1 – Пропустить ход.'
+    puts '2 – Взять еще карту.' if player.cards.size == 2
     puts '3 – Открыть карты.'
     line
   end

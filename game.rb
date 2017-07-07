@@ -3,11 +3,16 @@
 require_relative 'show'
 
 class Game
+  BET = 10
+
   include Show
+
   def initialize
     @dealer = Dealer.new('Дилер')
     @user = create_user
     @players = [@user, @dealer]
+    @deck = Deck.new
+    @bets = 0
     greeting(@user)
     start
   end
@@ -15,12 +20,14 @@ class Game
   private
 
   def start
-    cleanup
     start_menu(@user)
     choise = gets.chomp
     case choise
-    when 'y' || 'Y'
-      con
+    when 'y'
+      puts ''
+      puts 'Начинаем новый кон.'
+      line
+      start_con
     else
       puts 'Выход.'
       exit
@@ -34,9 +41,12 @@ class Game
   end
 
   def cleanup
-    @players.each(&:cleanup_cards)
-    @deck = Deck.new
     @bets = 0
+    @deck = Deck.new
+    @players.each(&:cleanup_cards)
+  end
+
+  def con
   end
 
   def create_user
@@ -46,13 +56,19 @@ class Game
     puts e.message
     retry
   end
-  
-  def con
-  end
 
   def distribution(deck)
     2.times do
       @players.each { |player| player.take_card(deck) }
     end
+  end
+  
+  def start_con
+    cleanup
+    distribution(@deck)
+    betting(BET)
+    show_cards(@user)
+    hide_cards(@dealer)
+    con
   end
 end
