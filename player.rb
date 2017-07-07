@@ -16,7 +16,7 @@ class Player
 
   def hide_cards
     puts "Карты #{@name}:"
-    player.cards.each { |card| puts "Карта: *. Очков: *" }
+    @cards.each { puts 'Карта: *. Очков: *' }
   end
 
   def take_card(deck)
@@ -36,7 +36,7 @@ class Player
 
   def show_cards
     puts "Карты #{@name}:"
-    player.cards.each { |card| puts "Карта: #{card}. Очков: #{card.value}" }
+    @cards.each { |card| puts "Карта: #{card}. Очков: #{card.value}" }
   end
 
   private
