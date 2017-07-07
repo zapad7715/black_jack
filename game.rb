@@ -13,7 +13,7 @@ class Game
   end
 
   def distribution(deck)
-    2.times { @player.hand.take_card(deck) }
-    2.times { @dealer.hand.take_card(deck) }
+    2.times { @player.take_card(deck) }
+    2.times { @dealer.take_card(deck) }
   end
 end
