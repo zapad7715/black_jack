@@ -12,9 +12,7 @@ class Game
   end
 
   def new_round
-    @players.each(&:cleanup_cards)
-    @deck = Deck.new
-    @bets = 0
+    cleanup
     distribution(@deck)
     betting(10)
   end
@@ -25,6 +23,12 @@ class Game
     @players.each { |player| @bets += player.give_money!(bet) }
   rescue RuntimeError => e
     puts e.message
+  end
+
+  def cleanup
+    @players.each(&:cleanup_cards)
+    @deck = Deck.new
+    @bets = 0
   end
 
   def create_user
