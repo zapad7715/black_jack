@@ -8,16 +8,24 @@ class Game
     @dealer = Dealer.new('Дилер')
     @user = create_user
     @players = [@user, @dealer]
-    new_round
-  end
-
-  def new_round
-    cleanup
-    distribution(@deck)
-    betting(10)
+    greeting(@user)
+    start
   end
 
   private
+
+  def start
+    cleanup
+    start_menu(@user)
+    choise = gets.chomp
+    case choise
+    when 'y' || 'Y'
+      con
+    else
+      puts 'Выход.'
+      exit
+    end
+  end
 
   def betting(bet)
     @players.each { |player| @bets += player.give_money!(bet) }
@@ -32,11 +40,14 @@ class Game
   end
 
   def create_user
-    puts 'Введите ваше имя: '
-    User.new(gets.chomp)
+    puts 'Введите ваше имя:'
+    User.new(gets.chomp.capitalize)
   rescue RuntimeError => e
     puts e.message
     retry
+  end
+  
+  def con
   end
 
   def distribution(deck)

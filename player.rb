@@ -5,7 +5,7 @@ require_relative 'bank'
 class Player
   include Bank
 
-  attr_reader :bank, :cards
+  attr_reader :bank, :cards, :name
 
   def initialize(name)
     @bank = 100
