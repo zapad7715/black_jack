@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'bank'
-require_relative 'hand'
 
 class Dealer
   include Bank
@@ -13,7 +12,8 @@ class Dealer
     class << @hand
       alias_method :real_take_card, :take_card
       def take_card(deck)
-        raise 'Dealer pass.' if score >= 19 && (0..91).include?(rand(100)) #В жизни должно быть место случаю
+        # In life there must be a place for the occasion
+        raise 'Dealer pass.' if score >= 19 && (0..91).cover?(rand(100))
         real_take_card(deck)
       end
     end
