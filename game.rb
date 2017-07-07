@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require_relative 'show'
+
 class Game
+  include Show
   def initialize
     @dealer = Dealer.new
     @user = create_user
@@ -23,24 +26,7 @@ class Game
     2.times { @dealer.take_card(deck) }
   end
 
-  def hide_cards(player)
-    puts "Карты #{player.name}:"
-    @cards.each { puts 'Карта: *. Очков: *' }
-  end
-
   def reset_deck
     @deck = Deck.new
-  end
-
-  def show_cards(*players)
-    players.each do |player|
-      puts "Карты #{player.name}:"
-      player.cards.each { |card| puts "Карта: #{card}. Очков: #{card.value}" }
-      total(player)
-    end
-  end
-
-  def total(player)
-    puts "Всего очков: #{player.score}"
   end
 end
