@@ -16,4 +16,5 @@ class Game
     2.times { @player.take_card(deck) }
     2.times { @dealer.take_card(deck) }
   end
+
 end
