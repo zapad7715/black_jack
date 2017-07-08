@@ -53,7 +53,7 @@ class Game
     puts 'Введите ваше имя:'
     Player.new(gets.chomp.capitalize, BANK)
   rescue RuntimeError => e
-    puts e.message
+    show_message(e.message)
     retry
   end
 
@@ -63,15 +63,9 @@ class Game
   end
 
   def determine_winner
-    if @user.score > 21 || (@user.score < 21 && @dealer.score > @user.score)
-      @dealer
-    else
-      @user
-    end
-  end
-
-  def distribution(deck)
-    @players.each { |player| player.take_card(deck) }
+    return @dealer if @user.score > 21
+    return @user if @dealer.score > 21
+    @dealer.score > @user.score ? @dealer : @user
   end
 
   def hit(player)
@@ -105,7 +99,9 @@ class Game
 
   def start_con
     cleanup
-    2.times { distribution(@deck) }
+    2.times do
+      @players.each { |player| player.take_card(@deck) }
+    end
     betting(BET)
     con
   end
