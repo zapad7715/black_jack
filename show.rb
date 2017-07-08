@@ -13,14 +13,14 @@ module Show
     line
   end
 
+  def line
+    puts '========================================================================='
+  end
+
   def start_menu(player)
     puts "Ваш банк составляет #{player.bank} долларов. Ставка за раунд 10 долларов."
     puts 'Начать новый кон? y/n?'
     line
-  end
-
-  def line
-    puts '========================================================================='
   end
 
   def show_actions(player)

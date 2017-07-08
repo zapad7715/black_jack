@@ -3,6 +3,7 @@
 require_relative 'show'
 
 class Game
+  ACTIONS = { 1 => :dealer_hit, 2 => :user_hit, 3 => :open_cards }.freeze
   BET = 10
 
   include Show
@@ -18,21 +19,6 @@ class Game
   end
 
   private
-
-  def start
-    start_menu(@user)
-    choise = gets.chomp
-    case choise
-    when 'y'
-      puts ''
-      puts 'Начинаем новый кон.'
-      line
-      start_con
-    else
-      puts 'Выход.'
-      exit
-    end
-  end
 
   def betting(bet)
     @players.each { |player| @bets += player.give_money!(bet) }
@@ -56,11 +42,7 @@ class Game
     hide_cards(@dealer)
     show_actions(@user)
     show_choice(choice = gets.chomp.to_i)
-    case choice
-    when 1 then dealer_hit
-    when 2 then user_hit
-    when 3 then open_cards
-    end
+    send(ACTIONS[choice])
   rescue RuntimeError
     puts "#{@dealer.name} пропускает ход."
     line
@@ -94,6 +76,21 @@ class Game
     line
     @players.each { |player| show_cards(player) }
     start
+  end
+
+  def start
+    start_menu(@user)
+    choise = gets.chomp
+    case choise
+    when 'y'
+      puts ''
+      puts 'Начинаем новый кон.'
+      line
+      start_con
+    else
+      puts 'Выход.'
+      exit
+    end
   end
 
   def start_con
