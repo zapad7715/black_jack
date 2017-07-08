@@ -40,6 +40,10 @@ class Game
     puts e.message
   end
 
+  def check_cards
+    open_cards if @user.cards.size == 3 && @dealer.cards.size == 3
+  end
+
   def cleanup
     @bets = 0
     @deck = Deck.new
@@ -47,6 +51,20 @@ class Game
   end
 
   def con
+    check_cards
+    show_cards(@user)
+    hide_cards(@dealer)
+    show_actions(@user)
+    show_choice(choice = gets.chomp.to_i)
+    case choice
+    when 1 then dealer_hit
+    when 2 then user_hit
+    when 3 then open_cards
+    end
+  rescue RuntimeError
+    puts "#{@dealer.name} пропускает ход."
+    line
+    con
   end
 
   def create_user
@@ -57,18 +75,43 @@ class Game
     retry
   end
 
+  def dealer_hit
+    puts "Ход #{@dealer.name}"
+    @dealer.take_card(@deck)
+    puts "#{@dealer.name} взял карту."
+    line
+    con
+  end
+
   def distribution(deck)
     2.times do
       @players.each { |player| player.take_card(deck) }
     end
   end
-  
+
+  def open_cards
+    puts 'Кон окончен.'
+    line
+    @players.each { |player| show_cards(player) }
+    start
+  end
+
   def start_con
     cleanup
     distribution(@deck)
     betting(BET)
-    show_cards(@user)
-    hide_cards(@dealer)
     con
+  end
+
+  def user_hit
+    if @user.cards.size < 3
+      puts 'Ваш ход.'
+      @user.take_card(@deck)
+      puts "Ваша карта: #{@user.cards.last}."
+    else
+      puts 'У вас уже 3 карты.'
+    end
+    line
+    dealer_hit
   end
 end

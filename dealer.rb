@@ -4,7 +4,8 @@ require_relative 'player'
 
 class Dealer < Player
   def take_card(deck)
-    raise 'Dealer pass.' if allow_take_card?
+    raise if allow_take_card?
+    raise if @cards.size == 3
     super
   end
 
