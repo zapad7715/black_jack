@@ -68,7 +68,7 @@ class Game
   end
 
   def determine_winner
-    if @user.score > 21 || (@user.score <= 21 && @dealer.score > @user.score)
+    if @user.score > 21 || (@user.score < 21 && @dealer.score > @user.score)
       @dealer
     else
       @user
