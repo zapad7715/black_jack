@@ -5,7 +5,7 @@ require_relative 'bank'
 class Player
   include Bank
 
-  attr_reader :bank, :cards, :name
+  attr_reader :bank, :cards
 
   def initialize(name, bank)
     @bank = bank
@@ -30,7 +30,7 @@ class Player
   end
 
   def to_s
-    "#{@name}"
+    @name.to_s
   end
 
   private

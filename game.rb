@@ -24,11 +24,7 @@ class Game
   def betting(bet)
     @players.each { |player| @bets += player.give_money!(bet) }
   rescue RuntimeError => e
-    puts e.message
-  end
-
-  def check_cards
-    open_cards if @user.cards.size == 3 && @dealer.cards.size == 3
+    show_message(e.message)
   end
 
   def cleanup
@@ -44,13 +40,12 @@ class Game
   end
 
   def con
-    check_cards
+    open_cards if @user.cards.size == 3 && @dealer.cards.size == 3
     show_cards(@user)
     hide_cards(@dealer)
     choice_actions(@user)
-  rescue RuntimeError
-    puts "#{@dealer} пропускает ход."
-    line
+  rescue RuntimeError => e
+    show_message(e.message)
     con
   end
 

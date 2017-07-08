@@ -60,6 +60,12 @@ module Show
     line
   end
 
+  def show_message(message)
+    puts message
+    line
+  end
+
+
   def show_winner(winner)
     puts "Победитель: #{winner}!"
   end
