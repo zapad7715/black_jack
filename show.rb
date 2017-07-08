@@ -7,6 +7,11 @@ module Show
     line
   end
 
+  def end_con
+    puts 'Кон окончен.'
+    line
+  end
+
   def hide_cards(player)
     puts "Карты #{player.name}:"
     player.cards.each { puts 'Карта: *. Очков: *' }
@@ -17,9 +22,9 @@ module Show
     puts '========================================================================='
   end
 
-  def start_menu(player)
-    puts "Ваш банк составляет #{player.bank} долларов. Ставка за раунд 10 долларов."
-    puts 'Начать новый кон? y/n?'
+  def new_con
+    puts ''
+    puts 'Начинаем новый кон.'
     line
   end
 
@@ -47,6 +52,16 @@ module Show
     2.times { line }
     puts "Вы выбрали #{choice}."
     line
+  end
+
+  def start_menu(player)
+    puts "Ваш банк составляет #{player.bank} долларов. Ставка за раунд 10 долларов."
+    puts 'Начать новый кон? y/n?'
+    line
+  end
+
+  def show_winner(winner)
+    puts "Победитель: #{winner.name}!"
   end
 
   def total(player)

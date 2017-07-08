@@ -4,12 +4,13 @@ require_relative 'show'
 
 class Game
   ACTIONS = { 1 => :dealer_hit, 2 => :user_hit, 3 => :open_cards }.freeze
+  BANK = 100
   BET = 10
 
   include Show
 
   def initialize
-    @dealer = Dealer.new('Дилер')
+    @dealer = Dealer.new('Дилер', BANK)
     @user = create_user
     @players = [@user, @dealer]
     @deck = Deck.new
@@ -36,13 +37,17 @@ class Game
     @players.each(&:cleanup_cards)
   end
 
+  def choice_actions(player)
+    show_actions(player)
+    show_choice(choice = gets.chomp.to_i)
+    send(ACTIONS[choice])
+  end
+
   def con
     check_cards
     show_cards(@user)
     hide_cards(@dealer)
-    show_actions(@user)
-    show_choice(choice = gets.chomp.to_i)
-    send(ACTIONS[choice])
+    choice_actions(@user)
   rescue RuntimeError
     puts "#{@dealer.name} пропускает ход."
     line
@@ -51,30 +56,42 @@ class Game
 
   def create_user
     puts 'Введите ваше имя:'
-    User.new(gets.chomp.capitalize)
+    Player.new(gets.chomp.capitalize, BANK)
   rescue RuntimeError => e
     puts e.message
     retry
   end
 
   def dealer_hit
-    puts "Ход #{@dealer.name}"
-    @dealer.take_card(@deck)
-    puts "#{@dealer.name} взял карту."
-    line
+    hit(@dealer)
     con
   end
 
-  def distribution(deck)
-    2.times do
-      @players.each { |player| player.take_card(deck) }
+  def determine_winner
+    if @user.score > 21 || (@user.score <= 21 && @dealer.score > @user.score)
+      @dealer
+    else
+      @user
     end
   end
 
-  def open_cards
-    puts 'Кон окончен.'
+  def distribution(deck)
+    @players.each { |player| player.take_card(deck) }
+  end
+
+  def hit(player)
+    puts "Ход #{player.name}"
+    player.take_card(@deck)
+    puts "#{player.name} взял карту."
     line
+  end
+
+  def open_cards
+    end_con
     @players.each { |player| show_cards(player) }
+    winner = determine_winner
+    show_winner(winner)
+    winner.take_money(@bets)
     start
   end
 
@@ -83,9 +100,7 @@ class Game
     choise = gets.chomp
     case choise
     when 'y'
-      puts ''
-      puts 'Начинаем новый кон.'
-      line
+      new_con
       start_con
     else
       puts 'Выход.'
@@ -95,20 +110,18 @@ class Game
 
   def start_con
     cleanup
-    distribution(@deck)
+    2.times { distribution(@deck) }
     betting(BET)
     con
   end
 
   def user_hit
     if @user.cards.size < 3
-      puts 'Ваш ход.'
-      @user.take_card(@deck)
-      puts "Ваша карта: #{@user.cards.last}."
+      hit(@user)
     else
       puts 'У вас уже 3 карты.'
+      choice_actions(@user)
     end
-    line
     dealer_hit
   end
 end
