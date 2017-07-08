@@ -7,8 +7,8 @@ class Player
 
   attr_reader :bank, :cards, :name
 
-  def initialize(name)
-    @bank = 100
+  def initialize(name, bank)
+    @bank = bank
     @cards = []
     @name = name
     validate!
