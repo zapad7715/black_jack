@@ -4,8 +4,7 @@ require_relative 'player'
 
 class Dealer < Player
   def take_card(deck)
-    raise message if allow_take_card?
-    raise message if @cards.size == 3
+    raise "#{@name} пропускает ход." if allow_take_card? || @cards.size == 3
     super
   end
 
@@ -14,9 +13,5 @@ class Dealer < Player
   def allow_take_card?
     # In life there must be a place for the occasion
     score >= 17 && (0..91).cover?(rand(100))
-  end
-
-  def message
-    "#{@name} пропускает ход."
   end
 end
