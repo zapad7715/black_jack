@@ -14,6 +14,10 @@ class Player
     validate!
   end
 
+  def cleanup_cards
+    @cards = []
+  end
+
   def score
     values = []
     @cards.each { |card| values << card.value }
@@ -25,8 +29,8 @@ class Player
     @cards << deck.cards.pop
   end
 
-  def cleanup_cards
-    @cards = []
+  def to_s
+    "#{@name}"
   end
 
   private

@@ -3,7 +3,7 @@
 module Show
   def greeting(player)
     line
-    puts "#{player.name} добро пожаловать в игру Blackjack!"
+    puts "#{player} добро пожаловать в игру Blackjack!"
     line
   end
 
@@ -13,7 +13,7 @@ module Show
   end
 
   def hide_cards(player)
-    puts "Карты #{player.name}:"
+    puts "Карты #{player}:"
     player.cards.each { puts 'Карта: *. Очков: *' }
     line
   end
@@ -41,7 +41,7 @@ module Show
   end
 
   def show_cards(player)
-    puts "Карты #{player.name}:"
+    puts "Карты #{player}:"
     player.cards.each { |card| show_card(card) }
     total(player)
     line
@@ -61,7 +61,7 @@ module Show
   end
 
   def show_winner(winner)
-    puts "Победитель: #{winner.name}!"
+    puts "Победитель: #{winner}!"
   end
 
   def total(player)

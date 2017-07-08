@@ -49,7 +49,7 @@ class Game
     hide_cards(@dealer)
     choice_actions(@user)
   rescue RuntimeError
-    puts "#{@dealer.name} пропускает ход."
+    puts "#{@dealer} пропускает ход."
     line
     con
   end
@@ -80,9 +80,9 @@ class Game
   end
 
   def hit(player)
-    puts "Ход #{player.name}"
+    puts "Ход #{player}"
     player.take_card(@deck)
-    puts "#{player.name} взял карту."
+    puts "#{player} взял карту."
     line
   end
 
