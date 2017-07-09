@@ -37,8 +37,6 @@ class Game
     show_actions(player)
     show_choice(choice = gets.chomp.to_i)
     send(ACTIONS[choice])
-  rescue
-    retry
   end
 
   def con
@@ -49,6 +47,8 @@ class Game
   rescue RuntimeError => e
     show_message(e.message)
     con
+  rescue TypeError
+    choice_actions(@user)
   end
 
   def create_user
