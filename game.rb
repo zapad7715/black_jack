@@ -37,6 +37,8 @@ class Game
     show_actions(player)
     show_choice(choice = gets.chomp.to_i)
     send(ACTIONS[choice])
+  rescue
+    retry
   end
 
   def con
