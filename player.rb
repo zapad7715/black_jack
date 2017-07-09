@@ -18,11 +18,19 @@ class Player
     @cards = []
   end
 
+  def each(&block)
+    @cards.each(&block)
+  end
+
   def score
     values = []
     @cards.each { |card| values << card.value }
     values[values.index(values.max)] = 1 if values.sum > 21 && values.max == 11
     values.sum
+  end
+
+  def size
+    @cards.size
   end
 
   def take_card(deck)

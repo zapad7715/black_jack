@@ -4,7 +4,7 @@ require_relative 'player'
 
 class Dealer < Player
   def take_card(deck)
-    raise "#{@name} пропускает ход." if forbidden_take_card? || @cards.size == 3
+    raise "#{@name} пропускает ход." if forbidden_take_card? || size == 3
     super
   end
 

@@ -40,7 +40,7 @@ class Game
   end
 
   def con
-    open_cards if @user.cards.size == 3 && @dealer.cards.size == 3
+    open_cards if @user.size == 3 && @dealer.size == 3
     show_cards(@user)
     hide_cards(@dealer)
     choice_actions(@user)

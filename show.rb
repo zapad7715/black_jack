@@ -14,7 +14,7 @@ module Show
 
   def hide_cards(player)
     puts "Карты #{player}:"
-    player.cards.each { puts 'Карта: *. Очков: *' }
+    player.each { puts 'Карта: *. Очков: *' }
     line
   end
 
@@ -31,7 +31,7 @@ module Show
   def show_actions(player)
     puts 'Выберите нужное действие:'
     puts '1 – Пропустить ход.'
-    puts '2 – Взять еще карту.' if player.cards.size == 2
+    puts '2 – Взять еще карту.' if player.size == 2
     puts '3 – Открыть карты.'
     line
   end
@@ -42,7 +42,7 @@ module Show
 
   def show_cards(player)
     puts "Карты #{player}:"
-    player.cards.each { |card| show_card(card) }
+    player.each { |card| show_card(card) }
     total(player)
     line
   end
